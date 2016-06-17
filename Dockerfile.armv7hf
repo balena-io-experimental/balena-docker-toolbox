@@ -1,7 +1,7 @@
 FROM resin/armv7hf-systemd:jessie
 
-ENV DOCKER_VERSION 1.7.1
-ENV DOCKER_COMPOSE_VERSION 1.5.2
+ENV DOCKER_VERSION 1.10.3
+ENV DOCKER_COMPOSE_VERSION 1.7.1
 
 RUN set -ex \
     && apt-get update \
@@ -10,13 +10,13 @@ RUN set -ex \
         build-essential \
         --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
-    && curl -SLO https://github.com/resin-io/docker/releases/download/1.7.1/docker-386-1.7.1.tar.xz \
-    && echo "3b6755732a1c721225d12d71a8bae8405f744f2b6c5f6348c626ba980ee5bd25  docker-386-1.7.1.tar.xz" | sha256sum -c - \
-    && tar -xvJf docker-386-1.7.1.tar.xz --strip-components=1 \
+    && curl -SLO http://resin-packages.s3.amazonaws.com/docker/docker-arm-$DOCKER_VERSION.tar.gz \
+    && echo "f55e46c4e4a4c5f1f6c49c524378d1fdb2f2c6a2f585380efab4a52fbed4c813  docker-arm-1.10.3.tar.gz" | sha256sum -c - \
+    && tar -xzf docker-arm-$DOCKER_VERSION.tar.gz --strip-components=1 \
     && mv docker /usr/local/bin/docker \
-    && rm -f docker-386-1.7.1.tar.xz \
-    && curl -SLO http://resin-packages.s3.amazonaws.com/docker-compose/1.5.2/docker-compose-linux-i386-1.5.2.tar.gz \
-    && echo "674e414f4a6940b7f5b26de22f5aa6135070069553c8acc3c4a6c641261a8f25  docker-compose-linux-armhf-1.5.2.tar.gz" | sha256sum -c - \
-    && tar -xzf docker-compose-linux-i386-1.5.2.tar.gz --strip-components=1 \
-    && mv docker-compose-linux-i386 /usr/local/bin/docker-compose \
-    && rm -f docker-compose-linux-i386-1.5.2.tar.gz
+    && rm -f docker-arm-$DOCKER_VERSION.tar.gz \
+    && curl -SLO http://resin-packages.s3.amazonaws.com/docker-compose/$DOCKER_COMPOSE_VERSION/docker-compose-linux-armhf-$DOCKER_COMPOSE_VERSION.tar.gz \
+    && echo "3f0b8c69c66a2daa5fbb0c127cb76ca95d7125827a9c43dd3c36f9bc2ed6e0e5  docker-compose-linux-armhf-1.7.1.tar.gz" | sha256sum -c - \
+    && tar -xzf docker-compose-linux-armhf-$DOCKER_COMPOSE_VERSION.tar.gz --strip-components=1 \
+    && mv docker-compose-linux-armhf /usr/local/bin/docker-compose \
+    && rm -f docker-compose-linux-armhf-$DOCKER_COMPOSE_VERSION.tar.gz
