@@ -3,7 +3,7 @@
 set -o errexit
 set -o pipefail
 
-REPO='resin/docker-toolbox'
+REPO='resinplayground/docker-toolbox'
 
 for arch in $ARCHS; do
 	cp -f Dockerfile.$arch Dockerfile
